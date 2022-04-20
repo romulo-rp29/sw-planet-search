@@ -1,25 +1,33 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
+// import PropTypes from 'prop-types';
 
-function Table() {
+export default function Table(/* { planets } */) {
   return (
     <table>
-      <tr>
-        <td>1</td>
-        <td>2</td>
-        <td>3</td>
-        <td>4</td>
-        <td>5</td>
-        <td>6</td>
-        <td>7</td>
-        <td>8</td>
-        <td>9</td>
-        <td>10</td>
-        <td>11</td>
-        <td>12</td>
-        <td>13</td>
-      </tr>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>RotationPeriod</th>
+          <th>OrbitalPeriod</th>
+          <th>Diameter</th>
+          <th>Climate</th>
+          <th>Gravity</th>
+          <th>Terrain</th>
+          <th>Surface Water</th>
+          <th>Population</th>
+          <th>Films</th>
+          <th>Created</th>
+          <th>Edited</th>
+          <th>URL</th>
+        </tr>
+      </thead>
+      {/* <tbody>
+      </tbody> */}
     </table>
   );
 }
 
-export default Table;
+// Table.propTypes = {
+//   planets:
+// };
