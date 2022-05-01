@@ -1,19 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import PlanetsContext from './PlanetsContext';
-import jangoFetchData from '../services/planetsAPI';
 
-export default function PlanetsProvider({ children }) {
-  const [planets, setPlanets] = useState([]);
+function PlanetsProvider({ children }) {
+  const tableHeads = ['Name', 'Rotation Period', 'Orbital Period', 'Diameter', 'Climate',
+    'Gravity', 'Terrain', 'Surface Water', 'Population', 'Films', 'Created', 'Edited',
+    'URL'];
 
-  async function getPlanets() {
-    const dataResponse = await jangoFetchData(planets);
-    setPlanets(dataResponse);
-  }
+  const [info, setInfo] = useState({});
+
+  // const jangoFetchData = async () => {
+  //   await fetch('https://swapi-trybe.herokuapp.com/api/planets/')
+  //     .then((response) => response.json())
+  //     .then((response) => {
+  //       console.log(response);
+  //     });
+  // };
+
+  useEffect(() => {
+    fetch('https://swapi-trybe.herokuapp.com/api/planets/')
+      .then((response) => response.json())
+      .then((response) => {
+        setInfo(response);
+      });
+  });
 
   const contextValue = {
-    getPlanets,
-    planets,
+    info,
+    setInfo,
+    tableHeads,
   };
 
   return (
@@ -26,3 +41,5 @@ export default function PlanetsProvider({ children }) {
 PlanetsProvider.propTypes = {
   children: PropTypes.shape({}).isRequired,
 };
+
+export default PlanetsProvider;

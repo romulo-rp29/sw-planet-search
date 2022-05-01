@@ -1,56 +1,40 @@
 import React, { useContext } from 'react';
 import PlanetsContext from '../context/PlanetsContext';
-import jangoFetchData from '../services/planetsAPI';
-
-const { planets } = useContext(PlanetsContext);
-
-const tableHeads = [
-  'Name',
-  'Rotation Period',
-  'Orbital Period',
-  'Diameter',
-  'Climate',
-  'Gravity',
-  'Terrain',
-  'Surface Water',
-  'Population',
-  'Films',
-  'Created',
-  'Edited',
-  'URL',
-];
 
 function Table() {
+  const { tableHeads, info } = useContext(PlanetsContext);
+
   return (
     <div>
       <table>
         <thead>
           <tr>
             {
-              tableHeads.filter((head) => <th key={ head }>{head}</th>)
+              tableHeads.map((head) => <th key={ head }>{head}</th>)
             }
           </tr>
         </thead>
         <tbody>
-          <tbody>
-            { planets.filter((item) => (
-              <tr key={ item.name }>
-                <td data-testid="planet-name">{item.name}</td>
-                <td>{item.rotation_period}</td>
-                <td>{item.orbital_period}</td>
-                <td>{item.diameter}</td>
-                <td>{item.climate}</td>
-                <td>{item.gravity}</td>
-                <td>{item.terrain}</td>
-                <td>{item.surface_water}</td>
-                <td>{item.population}</td>
-                <td>{item.films}</td>
-                <td>{item.created}</td>
-                <td>{item.edited}</td>
-                <td>{item.url}</td>
+          {info.results && (
+            info.results.map((planet) => (
+              <tr key={ planet.name }>
+                <td data-testid="planet-name">{planet.name}</td>
+                <td>{planet.rotation_period}</td>
+                <td>{planet.orbital_period}</td>
+                <td>{planet.diameter}</td>
+                <td>{planet.climate}</td>
+                <td>{planet.gravity}</td>
+                <td>{planet.terrain}</td>
+                <td>{planet.surface_water}</td>
+                <td>{planet.population}</td>
+                <td>{planet.films}</td>
+                <td>{planet.created}</td>
+                <td>{planet.edited}</td>
+                <td>{planet.url}</td>
               </tr>
-            ))}
-          </tbody>
+            ))
+          )}
+          {}
         </tbody>
       </table>
     </div>
