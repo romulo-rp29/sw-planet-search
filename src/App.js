@@ -1,14 +1,22 @@
-import React from 'react';
+import React/* , { useContext, useEffect } */ from 'react';
 import './App.css';
-import PlanetsProvider from './Context/PlanetsProvider';
-import Home from './Pages/Home';
+import Table from './components/Table';
+// import PlanetsProvider from './context/PlanetsProvider';
+// import PlanetsContext from './context/PlanetsContext';
 
 function App() {
+  // const { getPlanets, planets } = useContext(PlanetsContext);
+  // useEffect(() => {
+  //   getPlanets();
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log(planets);
+  // }, [planets]);
   return (
     <div>
-      <PlanetsProvider>
-        <Home />
-      </PlanetsProvider>
+      <Table />
     </div>
   );
 }

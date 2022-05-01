@@ -1,11 +1,7 @@
-const DATA_URL = 'https://swapi-trybe.herokuapp.com/api/planets/';
-
-async function jangoFetchData() {
-  const response = await fetch(DATA_URL);
-  const data = await response.json();
-  const planets = data.results;
-
-  return planets;
+function jangoFetchData() {
+  const response = fetch('https://swapi-trybe.herokuapp.com/api/planets/');
+  const planets = response.json();
+  return response.ok ? Promise.resolve(planets) : Promise.reject(planets);
 }
 
 export default jangoFetchData;
