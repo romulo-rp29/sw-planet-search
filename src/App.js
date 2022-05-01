@@ -1,7 +1,7 @@
-import React/* , { useContext, useEffect } */ from 'react';
+import React from 'react';
 import './App.css';
-import Table from './components/Table';
-import PlanetsProvider from './context/PlanetsProvider';
+import Table from './Components/Table';
+import PlanetsProvider from './Context/PlanetsProvider';
 
 function App() {
   return (
