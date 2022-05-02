@@ -9,21 +9,15 @@ function PlanetsProvider({ children }) {
 
   const [info, setInfo] = useState({});
 
-  // const jangoFetchData = async () => {
-  //   await fetch('https://swapi-trybe.herokuapp.com/api/planets/')
-  //     .then((response) => response.json())
-  //     .then((response) => {
-  //       console.log(response);
-  //     });
-  // };
-
   useEffect(() => {
-    fetch('https://swapi-trybe.herokuapp.com/api/planets/')
+    fetch(
+      'https://swapi-trybe.herokuapp.com/api/planets/',
+    )
       .then((response) => response.json())
-      .then((response) => {
-        setInfo(response);
+      .then((data) => {
+        setInfo(data);
       });
-  });
+  }, []);
 
   const contextValue = {
     info,

@@ -1,11 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PlanetsContext from '../Context/PlanetsContext';
 
 function Table() {
   const { tableHeads, info } = useContext(PlanetsContext);
 
+  const resultados = info.results;
+
+  useEffect(() => {
+    console.log(resultados);
+  });
+
   return (
     <div>
+      <input
+        type="text"
+        data-testid="name-filter"
+        onChange={ () => {} }
+      />
       <table>
         <thead>
           <tr>
@@ -15,8 +26,8 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {info.results && (
-            info.results.map((planet) => (
+          {resultados && (
+            resultados.map((planet) => (
               <tr key={ planet.name }>
                 <td data-testid="planet-name">{planet.name}</td>
                 <td>{planet.rotation_period}</td>
