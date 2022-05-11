@@ -6,16 +6,16 @@ function Table() {
 
   const [search, setSearch] = useState('');
 
-  const resultados = info.results;
+  const planetsResult = info.results;
 
   useEffect(() => {
     console.log(search);
   });
 
   const [selected, setSelected] = useState({
-    column: '',
-    comparsion: '',
-    value: '',
+    column: 'population',
+    comparison: 'maior que',
+    value: 0,
   });
 
   const [activeFilters, setActiveFilters] = useState([]);
@@ -24,29 +24,29 @@ function Table() {
     console.log(activeFilters);
   }, [activeFilters]);
 
-  const tratarDados = (linha) => {
+  const tratarDados = (item) => {
     const bools = [];
 
     activeFilters.forEach((filter) => {
-      switch (filter.comparsion) {
-      case '>':
-        bools.push(Number(linha[filter.column]) > Number(filter.value));
+      switch (filter.comparison) {
+      case 'maior que':
+        bools.push(Number(item[filter.column]) > Number(filter.value));
         break;
-      case '<':
-        bools.push(Number(linha[filter.column]) < Number(filter.value));
+      case 'menor que':
+        bools.push(Number(item[filter.column]) < Number(filter.value));
         break;
-      case '=':
-        bools.push(linha[filter.column] === Number(filter.value));
+      case 'igual a':
+        bools.push(Number(item[filter.column]) === Number(filter.value));
         break;
       default:
         return true;
       }
     });
-    return bools.every((el) => el);
+    return bools.every((element) => element);
   };
 
-  const tratarOpcoes = (opcao) => !activeFilters
-    .find((filtro) => opcao === filtro.column);
+  const tratarOpcoes = (option) => !activeFilters
+    .find((filter) => option === filter.column);
 
   return (
     <div>
@@ -60,7 +60,7 @@ function Table() {
         <select
           data-testid="column-filter"
           value={ selected.column }
-          onChange={ (e) => setSelected({ ...selected, column: e.target.value }) }
+          onChange={ (event) => setSelected({ ...selected, column: event.target.value }) }
         >
           {['population', 'orbital_period', 'diameter',
             'rotation_period', 'surface_water']
@@ -73,19 +73,21 @@ function Table() {
         </select>
         <select
           data-testid="comparison-filter"
-          value={ selected.comparsion }
-          onChange={ (e) => setSelected({ ...selected, comparsion: e.target.value }) }
+          value={ selected.comparison }
+          onChange={
+            (event) => setSelected({ ...selected, comparison: event.target.value })
+          }
         >
-          <option value=">">maior que</option>
-          <option value="<">menor que</option>
-          <option value="=">igual a</option>
+          <option value="maior que">maior que</option>
+          <option value="menor que">menor que</option>
+          <option value="igual a">igual a</option>
         </select>
         <input
           type="number"
           data-testid="value-filter"
           name="id"
           value={ selected.value }
-          onChange={ (e) => setSelected({ ...selected, value: e.target.value }) }
+          onChange={ (event) => setSelected({ ...selected, value: event.target.value }) }
         />
         <button
           type="button"
@@ -93,9 +95,9 @@ function Table() {
           onClick={ () => {
             setActiveFilters([...activeFilters, selected]);
             setSelected({
-              column: '',
-              comparsion: '',
-              value: '',
+              column: 'orbital_period',
+              comparison: 'maior que',
+              value: 0,
             });
           } }
         >
@@ -107,9 +109,9 @@ function Table() {
           onClick={ () => {
             setActiveFilters([]);
             setSelected({
-              column: '',
-              comparsion: '',
-              value: '',
+              column: 'population',
+              comparison: 'maior que',
+              value: 0,
             });
           } }
         >
@@ -129,9 +131,7 @@ function Table() {
               X
             </button>
             {filter.column}
-            {' '}
-            {filter.comparsion}
-            {' '}
+            {filter.comparison}
             {filter.value}
           </div>
         ))}
@@ -145,9 +145,9 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {resultados
+          {planetsResult
            && (
-             resultados.filter(tratarDados).map((planet) => (planet.name.toLowerCase()
+             planetsResult.filter(tratarDados).map((planet) => (planet.name.toLowerCase()
                .includes(search.toLowerCase()) ? (
                  <tr key={ planet.name }>
                    <td data-testid="planet-name">
