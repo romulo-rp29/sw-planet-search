@@ -85,7 +85,6 @@ function Table() {
         <input
           type="number"
           data-testid="value-filter"
-          name="id"
           value={ selected.value }
           onChange={ (event) => setSelected({ ...selected, value: event.target.value }) }
         />
@@ -105,7 +104,7 @@ function Table() {
         </button>
         <button
           type="button"
-          testid="button-remove-filters"
+          data-testid="button-remove-filters"
           onClick={ () => {
             setActiveFilters([]);
             setSelected({
@@ -118,10 +117,9 @@ function Table() {
           LIMPAR
         </button>
         {activeFilters.map((filter, index) => (
-          <div className="filters" key={ index }>
+          <div data-testid="filter" key={ index }>
             <button
               type="button"
-              data-testid="filter"
               onClick={ () => {
                 const cloneArray = [...activeFilters];
                 cloneArray.splice(index, 1);
