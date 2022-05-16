@@ -14,10 +14,8 @@ function PlanetsProvider({ children }) {
   const [search, setSearch] = useState('');
   const [activeFilters, setActiveFilters] = useState([]);
   const [order, setOrder] = useState({
-    order: {
-      column: 'population',
-      sort: 'ASC',
-    },
+    column: 'population',
+    sort: 'ASC',
   });
 
   const [selected, setSelected] = useState({
@@ -41,6 +39,16 @@ function PlanetsProvider({ children }) {
   const tratarOpcoes = (option) => !activeFilters
     .find((filter) => option === filter.column);
 
+  const sortByName = (a, b) => {
+    if (order.sort === 'ASC' || a[order.column] === 'unknown') {
+      return a[order.column] - b[order.column];
+    }
+    if (order.sort === 'DESC' || b[order.column] === 'unknown') {
+      return b[order.column] - a[order.column];
+    }
+    return a.name.localeCompare(b.name);
+  };
+
   const tratarDados = (item) => {
     const bools = [];
 
@@ -62,8 +70,6 @@ function PlanetsProvider({ children }) {
     return bools.every((element) => element);
   };
 
-  const sortName = (a, b) => a.name.localeCompare(b.name);
-
   const contextValue = {
     info,
     setInfo,
@@ -80,7 +86,7 @@ function PlanetsProvider({ children }) {
     tratarDados,
     order,
     setOrder,
-    sortName,
+    sortByName,
   };
 
   return (

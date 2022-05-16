@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PlanetsContext from '../Context/PlanetsContext';
 
 function Filters() {
@@ -11,7 +11,16 @@ function Filters() {
     setSelected,
     numericFilters,
     tratarOpcoes,
+    order,
+    setOrder,
   } = useContext(PlanetsContext);
+
+  useEffect(() => {
+    setOrder({
+      column: '',
+      sort: '',
+    });
+  }, [setOrder]);
 
   return (
     <div>
@@ -80,14 +89,14 @@ function Filters() {
         >
           LIMPAR
         </button>
-
-        {/* v---------------------------------------------------------------v */}
         <label htmlFor="column-sort">
           Ordenar:
           <select
             data-testid="column-sort"
             name="sortColumn"
-            // onChange={}
+            onChange={ (event) => {
+              setOrder({ ...order, column: event.target.value });
+            } }
           >
             {numericFilters
               .filter(tratarOpcoes)
@@ -105,8 +114,9 @@ function Filters() {
             id="sort-asc"
             name="sortRadioButton"
             value="ASC"
-            defaultChecked
-            // onChange={}
+            onChange={ (event) => {
+              setOrder({ ...order, sort: event.target.value });
+            } }
           />
           Ascendente
         </label>
@@ -117,7 +127,9 @@ function Filters() {
             id="sort-desc"
             name="sortRadioButton"
             value="DESC"
-            // onChange={}
+            onChange={ (event) => {
+              setOrder({ ...order, sort: event.target.value });
+            } }
           />
           Descendente
         </label>
@@ -125,12 +137,13 @@ function Filters() {
           type="button"
           data-testid="column-sort-button"
           label="ordenar"
-          // onClick={}
+          onClick={ () => {
+            setOrder({ ...order,
+            });
+          } }
         >
           Ordenar
         </button>
-        {/* ^---------------------------------------------------------------^ */}
-
         {activeFilters.map((filter, index) => (
           <div data-testid="filter" key={ index }>
             <button
