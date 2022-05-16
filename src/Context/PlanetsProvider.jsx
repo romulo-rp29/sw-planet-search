@@ -13,6 +13,12 @@ function PlanetsProvider({ children }) {
   const [info, setInfo] = useState({});
   const [search, setSearch] = useState('');
   const [activeFilters, setActiveFilters] = useState([]);
+  const [order, setOrder] = useState({
+    order: {
+      column: 'population',
+      sort: 'ASC',
+    },
+  });
 
   const [selected, setSelected] = useState({
     column: 'population',
@@ -56,6 +62,8 @@ function PlanetsProvider({ children }) {
     return bools.every((element) => element);
   };
 
+  const sortName = (a, b) => a.name.localeCompare(b.name);
+
   const contextValue = {
     info,
     setInfo,
@@ -70,6 +78,9 @@ function PlanetsProvider({ children }) {
     numericFilters,
     tratarOpcoes,
     tratarDados,
+    order,
+    setOrder,
+    sortName,
   };
 
   return (

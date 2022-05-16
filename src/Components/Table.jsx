@@ -7,6 +7,7 @@ function Table() {
     search,
     planetsResult,
     tratarDados,
+    sortName,
   } = useContext(PlanetsContext);
 
   return (
@@ -24,6 +25,7 @@ function Table() {
            && (
              planetsResult
                .filter(tratarDados)
+               .sort(sortName)
                .map((planet) => (planet.name.toLowerCase()
                  .includes(search.toLowerCase()) ? (
                    <tr key={ planet.name }>

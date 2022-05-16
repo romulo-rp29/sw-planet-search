@@ -80,10 +80,14 @@ function Filters() {
         >
           LIMPAR
         </button>
+
+        {/* v---------------------------------------------------------------v */}
         <label htmlFor="column-sort">
           Ordenar:
           <select
             data-testid="column-sort"
+            name="sortColumn"
+            // onChange={}
           >
             {numericFilters
               .filter(tratarOpcoes)
@@ -99,8 +103,10 @@ function Filters() {
             type="radio"
             data-testid="column-sort-input-asc"
             id="sort-asc"
+            name="sortRadioButton"
             value="ASC"
             defaultChecked
+            // onChange={}
           />
           Ascendente
         </label>
@@ -109,7 +115,9 @@ function Filters() {
             type="radio"
             data-testid="column-sort-input-desc"
             id="sort-desc"
+            name="sortRadioButton"
             value="DESC"
+            // onChange={}
           />
           Descendente
         </label>
@@ -117,9 +125,12 @@ function Filters() {
           type="button"
           data-testid="column-sort-button"
           label="ordenar"
+          // onClick={}
         >
           Ordenar
         </button>
+        {/* ^---------------------------------------------------------------^ */}
+
         {activeFilters.map((filter, index) => (
           <div data-testid="filter" key={ index }>
             <button
